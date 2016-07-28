@@ -70,24 +70,24 @@ class Builder implements \Countable, \ArrayAccess
      */
     public function generate():array
     {
-        $angle = $x = $y = 0;
-        $turn = $step = $this->step;
+        // initialize auxiliary variables
+        $headAngle = $x = $y = 0; // head starts at 0 (right)
+        $turn = $step = $this->step; // will turn for the first time at the step value
         for ($i = 1; $i < $this->total; $i++) {
             $dx = $this->direction->x;
             $dy = $this->direction->y;
             $x += $dx;
             $y += $dy;
-            if ($i === $turn) {
-                $angle += 90;
+            if ($i === $turn) { // should I turn my head now?
+                $headAngle += 90; // turn 90 degrees
                 if (($dx === 0 && $dy !== 0)) {
-                    $step += $this->step;
+                    $step += $this->step; // double the steps
                 }
-                $turn += $step;
-                $this->updateDirection($angle);
+                $turn += $step; // will go further steps to turn next time
+                $this->updateDirection($headAngle);
             }
             $this->add(new SpiralPoint($x, $y));
         }
-
         return $this->data;
     }
 
@@ -126,6 +126,7 @@ class Builder implements \Countable, \ArrayAccess
     }
 
     /**
+     * Where should I go next time.
      * @param int $angle
      *
      * @return Builder
