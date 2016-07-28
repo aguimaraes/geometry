@@ -7,5 +7,3 @@
 composer.json
 composer.lock
 phpunit.xml
-src/
-tests/

@@ -1,20 +1,20 @@
 <?php
 
-use Aguimaraes\Spiral\Spiral;
+use Aguimaraes\Spiral\Builder;
 use Aguimaraes\Spiral\SpiralPoint;
 
-class SpiralTest extends PHPUnit_Framework_TestCase
+class BuilderTest extends PHPUnit_Framework_TestCase
 {
     public function testIfTotalsWillBeRespected()
     {
-        $collection = (new Spiral())->setTotal(3)
+        $collection = (new Builder())->setTotal(3)
             ->generate();
         $this->assertEquals(3, count($collection));
     }
 
     public function testIfStepsWillBeRespected()
     {
-        $collection = (new Spiral())->setStep(2)
+        $collection = (new Builder())->setStep(2)
             ->setTotal(8)
             ->generate();
         $firstTurn = new SpiralPoint(2, 1);
