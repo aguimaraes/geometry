@@ -30,22 +30,27 @@ class SpiralPoint
 
     /**
      * @param string $coordinate
-     * @return int
+     *
      * @throws SpiralPointException
+     *
+     * @return int
      */
     public function get(string $coordinate):int
     {
         if (!property_exists($this, $coordinate)) {
             throw new SpiralPointException('Inexistent coordinate.');
         }
+
         return $this->{$coordinate};
     }
 
     /**
      * @param string $coordinate
      * @param $value
-     * @return SpiralPoint
+     *
      * @throws SpiralPointException
+     *
+     * @return SpiralPoint
      */
     public function set(string $coordinate, $value):SpiralPoint
     {
@@ -53,11 +58,12 @@ class SpiralPoint
             throw new SpiralPointException('Inexistent coordinate.');
         }
         $this->{$coordinate} = $value;
+
         return $this;
     }
 
     /**
-     * Will return the string: 0,0
+     * Will return the string: 0,0.
      *
      * @return string
      */

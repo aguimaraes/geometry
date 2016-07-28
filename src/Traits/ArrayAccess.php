@@ -34,9 +34,11 @@ trait ArrayAccess
     {
         if (is_null($offset)) {
             $this->data[] = $value;
+
             return $this;
         }
         $this->data[$offset] = $value;
+
         return $this;
     }
 
@@ -47,5 +49,4 @@ trait ArrayAccess
     {
         unset($this->data[$offset]);
     }
-
 }
