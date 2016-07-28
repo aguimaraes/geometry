@@ -88,6 +88,7 @@ class Builder implements \Countable, \ArrayAccess
             }
             $this->add(new SpiralPoint($x, $y));
         }
+
         return $this->data;
     }
 
@@ -127,6 +128,7 @@ class Builder implements \Countable, \ArrayAccess
 
     /**
      * Where should I go next time.
+     *
      * @param int $angle
      *
      * @return Builder
