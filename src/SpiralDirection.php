@@ -31,22 +31,27 @@ class SpiralDirection
 
     /**
      * @param string $coordinate
-     * @return int
+     *
      * @throws SpiralDirectionException
+     *
+     * @return int
      */
     public function get(string $coordinate):int
     {
         if (!property_exists($this, $coordinate)) {
             throw new SpiralDirectionException('Inexistent coordinate.');
         }
+
         return $this->{$coordinate};
     }
 
     /**
      * @param string $coordinate
      * @param $value
-     * @return SpiralDirection
+     *
      * @throws SpiralDirectionException
+     *
+     * @return SpiralDirection
      */
     public function set(string $coordinate, $value):SpiralDirection
     {
@@ -54,6 +59,7 @@ class SpiralDirection
             throw new SpiralDirectionException('Inexistent coordinate.');
         }
         $this->{$coordinate} = $value;
+
         return $this;
     }
 
@@ -70,6 +76,7 @@ class SpiralDirection
     /**
      * @param string $coordinate
      * @param $value
+     *
      * @return SpiralDirection
      */
     public function __set(string $coordinate, $value):SpiralDirection
@@ -78,7 +85,7 @@ class SpiralDirection
     }
 
     /**
-     * Validate the coordinates
+     * Validate the coordinates.
      */
     public function validate()
     {
