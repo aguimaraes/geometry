@@ -157,8 +157,8 @@ class Builder implements \Countable, \ArrayAccess
      */
     protected function updateDirection(int $angle):Builder
     {
-        $this->direction->x = (int) ceil(cos(deg2rad($angle)));
-        $this->direction->y = (int) ceil(sin(deg2rad($angle)));
+        $this->direction->x = (int) round(cos(deg2rad($angle)));
+        $this->direction->y = (int) round(sin(deg2rad($angle)));
 
         return $this;
     }

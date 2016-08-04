@@ -46,7 +46,7 @@ class BuilderTest extends PHPUnit_Framework_TestCase
             ->generate();
 
         $firstTurn = new SpiralPoint(3, 1);
-        $secondTurn = new SpiralPoint(5, 3);
+        $secondTurn = new SpiralPoint(4, 3);
 
         $this->assertEquals($firstTurn, $collection[3]);
         $this->assertEquals($secondTurn, $collection[5]);
