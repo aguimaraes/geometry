@@ -6,7 +6,7 @@ use Aguimaraes\Spiral\Exceptions\SpiralException;
 use Aguimaraes\Spiral\Traits\ArrayAccess;
 use Aguimaraes\Spiral\Traits\Countable;
 
-class Spiral implements \Countable, \ArrayAccess
+class Builder implements \Countable, \ArrayAccess
 {
     use Countable, ArrayAccess;
 
@@ -46,7 +46,7 @@ class Spiral implements \Countable, \ArrayAccess
     protected $data = [];
 
     /**
-     * Spiral constructor.
+     * Builder constructor.
      *
      * @param int                  $step
      * @param SpiralPoint|null     $first
@@ -70,20 +70,21 @@ class Spiral implements \Countable, \ArrayAccess
      */
     public function generate():array
     {
-        $angle = $x = $y = 0;
-        $turn = $step = $this->step;
+        // initialize auxiliary variables
+        $headAngle = $x = $y = 0; // head starts at 0 (right)
+        $turn = $step = $this->step; // will turn for the first time at the step value
         for ($i = 1; $i < $this->total; $i++) {
             $dx = $this->direction->x;
             $dy = $this->direction->y;
             $x += $dx;
             $y += $dy;
-            if ($i === $turn) {
-                $angle += 90;
+            if ($i === $turn) { // should I turn my head now?
+                $headAngle += 90; // turn 90 degrees
                 if (($dx === 0 && $dy !== 0)) {
-                    $step += $this->step;
+                    $step += $this->step; // double the steps
                 }
-                $turn += $step;
-                $this->updateDirection($angle);
+                $turn += $step; // will go further steps to turn next time
+                $this->updateDirection($headAngle);
             }
             $this->add(new SpiralPoint($x, $y));
         }
@@ -96,9 +97,9 @@ class Spiral implements \Countable, \ArrayAccess
      *
      * @throws SpiralException
      *
-     * @return Spiral
+     * @return Builder
      */
-    public function setStep(int $step):Spiral
+    public function setStep(int $step):Builder
     {
         if ($step < 1) {
             throw new SpiralException('Step cannot less than 1.');
@@ -113,9 +114,9 @@ class Spiral implements \Countable, \ArrayAccess
      *
      * @throws SpiralException
      *
-     * @return Spiral
+     * @return Builder
      */
-    public function setTotal(int $total):Spiral
+    public function setTotal(int $total):Builder
     {
         if ($total < 1) {
             throw new SpiralException('Total cannot be less than 1.');
@@ -126,11 +127,13 @@ class Spiral implements \Countable, \ArrayAccess
     }
 
     /**
+     * Where should I go next time.
+     *
      * @param int $angle
      *
-     * @return Spiral
+     * @return Builder
      */
-    protected function updateDirection(int $angle):Spiral
+    protected function updateDirection(int $angle):Builder
     {
         $this->direction->x = (int) cos(deg2rad($angle));
         $this->direction->y = (int) sin(deg2rad($angle));
@@ -141,9 +144,9 @@ class Spiral implements \Countable, \ArrayAccess
     /**
      * @param SpiralPoint $point
      *
-     * @return Spiral
+     * @return Builder
      */
-    public function add(SpiralPoint $point):Spiral
+    public function add(SpiralPoint $point):Builder
     {
         array_push($this->data, $point);
 
