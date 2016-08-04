@@ -119,8 +119,9 @@ class Builder implements \Countable, \ArrayAccess
     /**
      * @param int $angle
      *
-     * @return $this
      * @throws SpiralException
+     *
+     * @return $this
      */
     public function setAngle(int $angle)
     {
