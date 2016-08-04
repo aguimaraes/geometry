@@ -104,7 +104,6 @@ class Builder implements \Countable, \ArrayAccess
      * @param int $step
      *
      * @throws SpiralException
-     *
      * @return Builder
      */
     public function setStep(int $step):Builder
@@ -119,6 +118,7 @@ class Builder implements \Countable, \ArrayAccess
 
     /**
      * @param int $angle
+     *
      * @return $this
      * @throws SpiralException
      */
@@ -128,6 +128,7 @@ class Builder implements \Countable, \ArrayAccess
             throw new SpiralException('Angle must <= 90 and multiple of 45.');
         }
         $this->angle = $angle;
+
         return $this;
     }
 
@@ -135,7 +136,6 @@ class Builder implements \Countable, \ArrayAccess
      * @param int $total
      *
      * @throws SpiralException
-     *
      * @return Builder
      */
     public function setTotal(int $total):Builder
@@ -157,8 +157,8 @@ class Builder implements \Countable, \ArrayAccess
      */
     protected function updateDirection(int $angle):Builder
     {
-        $this->direction->x = (int) round(cos(deg2rad($angle)));
-        $this->direction->y = (int) round(sin(deg2rad($angle)));
+        $this->direction->x = (int)round(cos(deg2rad($angle)));
+        $this->direction->y = (int)round(sin(deg2rad($angle)));
 
         return $this;
     }
