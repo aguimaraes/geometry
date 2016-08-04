@@ -1,4 +1,6 @@
-[![Build Status](https://travis-ci.org/aguimaraes/spiral.svg?branch=master)](https://travis-ci.org/aguimaraes/spiral) [![StyleCI](https://styleci.io/repos/64354281/shield)](https://styleci.io/repos/64354281)
+[![Build Status](https://travis-ci.org/aguimaraes/spiral.svg?branch=master)](https://travis-ci.org/aguimaraes/spiral)
+[![StyleCI](https://styleci.io/repos/64354281/shield)](https://styleci.io/repos/64354281)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2ebbf96a9c934e1bb8b5fba41758d83b)](https://www.codacy.com/app/alvaroguimaraes/spiral?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=aguimaraes/spiral&amp;utm_campaign=Badge_Grade)
 
 # Archimedean Spiral Generator
 
