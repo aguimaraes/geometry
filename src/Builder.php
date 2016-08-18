@@ -18,6 +18,11 @@ class Builder implements \Countable, \ArrayAccess
     protected $step;
 
     /**
+     * @var int How much to turn?
+     */
+    protected $angle;
+
+    /**
      * How much?
      *
      * @var int
@@ -49,12 +54,15 @@ class Builder implements \Countable, \ArrayAccess
      * Builder constructor.
      *
      * @param int                  $step
+     * @param int                  $angle
      * @param SpiralPoint|null     $first
      * @param SpiralDirection|null $direction
      */
-    public function __construct(int $step = 1, SpiralPoint $first = null, SpiralDirection $direction = null)
+    public function __construct(int $step = 1, int $angle = 90, SpiralPoint $first = null, SpiralDirection $direction = null)
     {
         $this->step = $step;
+
+        $this->angle = $angle;
 
         $this->first = $first ?? new SpiralPoint();
 
@@ -79,7 +87,7 @@ class Builder implements \Countable, \ArrayAccess
             $x += $dx;
             $y += $dy;
             if ($i === $turn) { // should I turn my head now?
-                $headAngle += 90; // turn 90 degrees
+                $headAngle += $this->angle; // turn
                 if (($dx === 0 && $dy !== 0)) {
                     $step += $this->step; // double the steps
                 }
@@ -96,7 +104,6 @@ class Builder implements \Countable, \ArrayAccess
      * @param int $step
      *
      * @throws SpiralException
-     *
      * @return Builder
      */
     public function setStep(int $step):Builder
@@ -110,10 +117,26 @@ class Builder implements \Countable, \ArrayAccess
     }
 
     /**
-     * @param int $total
+     * @param int $angle
      *
      * @throws SpiralException
      *
+     * @return $this
+     */
+    public function setAngle(int $angle)
+    {
+        if ($angle > 90 || $angle % 45 !== 0) {
+            throw new SpiralException('Angle must <= 90 and multiple of 45.');
+        }
+        $this->angle = $angle;
+
+        return $this;
+    }
+
+    /**
+     * @param int $total
+     *
+     * @throws SpiralException
      * @return Builder
      */
     public function setTotal(int $total):Builder
@@ -135,8 +158,8 @@ class Builder implements \Countable, \ArrayAccess
      */
     protected function updateDirection(int $angle):Builder
     {
-        $this->direction->x = (int) cos(deg2rad($angle));
-        $this->direction->y = (int) sin(deg2rad($angle));
+        $this->direction->x = (int)round(cos(deg2rad($angle)));
+        $this->direction->y = (int)round(sin(deg2rad($angle)));
 
         return $this;
     }
