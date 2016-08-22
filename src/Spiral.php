@@ -44,6 +44,13 @@ class Spiral implements \Countable, \ArrayAccess
     protected $direction;
 
     /**
+     * The offset.
+     *
+     * @var integer
+     */
+    protected $offset;
+
+    /**
      * The collection.
      *
      * @var array
@@ -173,6 +180,17 @@ class Spiral implements \Countable, \ArrayAccess
     {
         array_push($this->data, $point);
 
+        return $this;
+    }
+
+    /**
+     * @param int $offset
+     *
+     * @return Builder
+     */
+    public function setOffset(int $offset):Builder
+    {
+        $this->offset = $offset;
         return $this;
     }
 }
