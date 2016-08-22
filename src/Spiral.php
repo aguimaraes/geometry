@@ -89,15 +89,11 @@ class Spiral implements \Countable, \ArrayAccess
         $headAngle = $x = $y = 0; // head starts at 0 (right)
         $turn = $step = $this->step; // will turn for the first time at the step value
         for ($i = 1; $i < $this->total; $i++) {
-            $dx = $this->direction->x;
-            $dy = $this->direction->y;
-            $x += $dx;
-            $y += $dy;
+            $x += $this->getDirectionX();
+            $y += $this->getDirectionY();
             if ($i === $turn) { // should I turn my head now?
-                $headAngle += $this->angle; // turn
-                if (($dx === 0 && $dy !== 0)) {
-                    $step += $this->step; // double the steps
-                }
+                $headAngle = $this->getHeadAngle($headAngle);
+                $step = $this->getNextTurn($step);
                 $turn += $step; // will go further steps to turn next time
                 $this->updateDirection($headAngle);
             }
@@ -105,6 +101,46 @@ class Spiral implements \Countable, \ArrayAccess
         }
 
         return $this->data;
+    }
+
+    /**
+     * @param int $currentHeadAngle
+     *
+     * @return int
+     */
+    private function getHeadAngle(int $currentHeadAngle)
+    {
+        return $currentHeadAngle + $this->angle;
+    }
+
+    /**
+     * @param int $currentStep
+     *
+     * @return int
+     */
+    private function getNextTurn(int $currentStep)
+    {
+        $step = $currentStep;
+        if ($this->getDirectionX() === 0 && $this->getDirectionY() === 0) {
+            $step += $this->step;
+        }
+        return $step;
+    }
+
+    /**
+     * @return int
+     */
+    private function getDirectionX()
+    {
+        return $this->direction->x;
+    }
+
+    /**
+     * @return int
+     */
+    private function getDirectionY()
+    {
+        return $this->direction->y;
     }
 
     /**
