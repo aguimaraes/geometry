@@ -11,16 +11,9 @@ class Spiral implements \Countable, \ArrayAccess
     use Countable, ArrayAccess;
 
     /**
-     * Where the turn will happen.
-     *
-     * @var int
+     * @var Config
      */
-    protected $step;
-
-    /**
-     * @var int How much to turn?
-     */
-    protected $angle;
+    protected $config;
 
     /**
      * How much?
@@ -28,27 +21,6 @@ class Spiral implements \Countable, \ArrayAccess
      * @var int
      */
     protected $total;
-
-    /**
-     * Where's the first point.
-     *
-     * @var SpiralPoint
-     */
-    protected $first;
-
-    /**
-     * The current direction.
-     *
-     * @var SpiralDirection
-     */
-    protected $direction;
-
-    /**
-     * The offset.
-     *
-     * @var integer
-     */
-    protected $offset;
 
     /**
      * The collection.
@@ -60,22 +32,16 @@ class Spiral implements \Countable, \ArrayAccess
     /**
      * Builder constructor.
      *
-     * @param int                  $step
-     * @param int                  $angle
-     * @param SpiralPoint|null     $first
-     * @param SpiralDirection|null $direction
+     * @param Config $config
      */
-    public function __construct(int $step = 1, int $angle = 90, SpiralPoint $first = null, SpiralDirection $direction = null)
+    public function __construct(Config $config = null)
     {
-        $this->step = $step;
+        if (is_null($config)) {
+            $config = new Config();
+        }
+        $this->config = $config;
 
-        $this->angle = $angle;
-
-        $this->first = $first ?? new SpiralPoint();
-
-        $this->direction = $direction ?? new SpiralDirection(1, 0);
-
-        $this->add($this->first);
+        $this->add($config->first);
     }
 
     /**
@@ -87,7 +53,7 @@ class Spiral implements \Countable, \ArrayAccess
     {
         // initialize auxiliary variables
         $headAngle = $x = $y = 0; // head starts at 0 (right)
-        $turn = $step = $this->step; // will turn for the first time at the step value
+        $turn = $step = $this->config->step; // will turn for the first time at the step value
         for ($i = 1; $i < $this->total; $i++) {
             $x += $this->getDirectionX();
             $y += $this->getDirectionY();
@@ -110,7 +76,7 @@ class Spiral implements \Countable, \ArrayAccess
      */
     private function getHeadAngle(int $currentHeadAngle)
     {
-        return $currentHeadAngle + $this->angle;
+        return $currentHeadAngle + $this->config->angle;
     }
 
     /**
@@ -122,7 +88,7 @@ class Spiral implements \Countable, \ArrayAccess
     {
         $step = $currentStep;
         if ($this->getDirectionX() === 0 && $this->getDirectionY() === 0) {
-            $step += $this->step;
+            $step += $this->config->step;
         }
         return $step;
     }
@@ -132,7 +98,7 @@ class Spiral implements \Countable, \ArrayAccess
      */
     private function getDirectionX()
     {
-        return $this->direction->x;
+        return $this->config->direction->x;
     }
 
     /**
@@ -140,7 +106,7 @@ class Spiral implements \Countable, \ArrayAccess
      */
     private function getDirectionY()
     {
-        return $this->direction->y;
+        return $this->config->direction->y;
     }
 
     /**
@@ -154,7 +120,7 @@ class Spiral implements \Countable, \ArrayAccess
         if ($step < 1) {
             throw new SpiralException('Step cannot less than 1.');
         }
-        $this->step = $step;
+        $this->config->step = $step;
 
         return $this;
     }
@@ -171,7 +137,7 @@ class Spiral implements \Countable, \ArrayAccess
         if ($angle > 90 || $angle % 45 !== 0) {
             throw new SpiralException('Angle must <= 90 and multiple of 45.');
         }
-        $this->angle = $angle;
+        $this->config->angle = $angle;
 
         return $this;
     }
@@ -201,8 +167,8 @@ class Spiral implements \Countable, \ArrayAccess
      */
     protected function updateDirection(int $angle):Spiral
     {
-        $this->direction->x = (int)round(cos(deg2rad($angle)));
-        $this->direction->y = (int)round(sin(deg2rad($angle)));
+        $this->config->direction->x = (int)round(cos(deg2rad($angle)));
+        $this->config->direction->y = (int)round(sin(deg2rad($angle)));
 
         return $this;
     }
@@ -226,7 +192,7 @@ class Spiral implements \Countable, \ArrayAccess
      */
     public function setOffset(int $offset):Builder
     {
-        $this->offset = $offset;
+        $this->config->offset = $offset;
         return $this;
     }
 }
