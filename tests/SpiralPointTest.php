@@ -1,7 +1,7 @@
 <?php
 
-use Aguimaraes\Spiral\Exceptions\SpiralPointException;
-use Aguimaraes\Spiral\SpiralPoint;
+use Aguimaraes\Geometry\Exceptions\SpiralPointException;
+use Aguimaraes\Geometry\SpiralPoint;
 
 class SpiralPointTest extends PHPUnit_Framework_TestCase
 {

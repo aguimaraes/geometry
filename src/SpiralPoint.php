@@ -1,8 +1,8 @@
 <?php
 
-namespace Aguimaraes\Spiral;
+namespace Aguimaraes\Geometry;
 
-use Aguimaraes\Spiral\Exceptions\SpiralPointException;
+use Aguimaraes\Geometry\Exceptions\SpiralPointException;
 
 class SpiralPoint
 {

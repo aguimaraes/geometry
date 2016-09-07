@@ -1,7 +1,7 @@
 <?php
 
-use Aguimaraes\Spiral\Exceptions\SpiralDirectionException;
-use Aguimaraes\Spiral\SpiralDirection;
+use Aguimaraes\Geometry\Exceptions\SpiralDirectionException;
+use Aguimaraes\Geometry\SpiralDirection;
 
 class SpiralDirectionTest extends PHPUnit_Framework_TestCase
 {

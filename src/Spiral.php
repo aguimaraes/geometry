@@ -1,12 +1,12 @@
 <?php
 
-namespace Aguimaraes\Spiral;
+namespace Aguimaraes\Geometry;
 
-use Aguimaraes\Spiral\Exceptions\SpiralException;
-use Aguimaraes\Spiral\Traits\ArrayAccess;
-use Aguimaraes\Spiral\Traits\Countable;
+use Aguimaraes\Geometry\Exceptions\SpiralException;
+use Aguimaraes\Geometry\Traits\ArrayAccess;
+use Aguimaraes\Geometry\Traits\Countable;
 
-class Builder implements \Countable, \ArrayAccess
+class Spiral implements \Countable, \ArrayAccess
 {
     use Countable, ArrayAccess;
 
@@ -104,9 +104,9 @@ class Builder implements \Countable, \ArrayAccess
      * @param int $step
      *
      * @throws SpiralException
-     * @return Builder
+     * @return Spiral
      */
-    public function setStep(int $step):Builder
+    public function setStep(int $step):Spiral
     {
         if ($step < 1) {
             throw new SpiralException('Step cannot less than 1.');
@@ -121,7 +121,7 @@ class Builder implements \Countable, \ArrayAccess
      *
      * @throws SpiralException
      *
-     * @return $this
+     * @return Spiral
      */
     public function setAngle(int $angle)
     {
@@ -137,9 +137,9 @@ class Builder implements \Countable, \ArrayAccess
      * @param int $total
      *
      * @throws SpiralException
-     * @return Builder
+     * @return Spiral
      */
-    public function setTotal(int $total):Builder
+    public function setTotal(int $total):Spiral
     {
         if ($total < 1) {
             throw new SpiralException('Total cannot be less than 1.');
@@ -154,9 +154,9 @@ class Builder implements \Countable, \ArrayAccess
      *
      * @param int $angle
      *
-     * @return Builder
+     * @return Spiral
      */
-    protected function updateDirection(int $angle):Builder
+    protected function updateDirection(int $angle):Spiral
     {
         $this->direction->x = (int)round(cos(deg2rad($angle)));
         $this->direction->y = (int)round(sin(deg2rad($angle)));
@@ -167,9 +167,9 @@ class Builder implements \Countable, \ArrayAccess
     /**
      * @param SpiralPoint $point
      *
-     * @return Builder
+     * @return Spiral
      */
-    public function add(SpiralPoint $point):Builder
+    public function add(SpiralPoint $point):Spiral
     {
         array_push($this->data, $point);
 

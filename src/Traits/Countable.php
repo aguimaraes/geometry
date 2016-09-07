@@ -1,6 +1,6 @@
 <?php
 
-namespace Aguimaraes\Spiral\Traits;
+namespace Aguimaraes\Geometry\Traits;
 
 trait Countable
 {

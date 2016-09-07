@@ -1,8 +1,8 @@
 <?php
 
-namespace Aguimaraes\Spiral;
+namespace Aguimaraes\Geometry;
 
-use Aguimaraes\Spiral\Exceptions\SpiralDirectionException;
+use Aguimaraes\Geometry\Exceptions\SpiralDirectionException;
 
 class SpiralDirection
 {
@@ -113,8 +113,7 @@ class SpiralDirection
      */
     protected function cantBeMoreThanOneUnitDistantFromZero()
     {
-        if (
-            ($this->x > 1 || $this->x * -1 > 1) ||
+        if (($this->x > 1 || $this->x * -1 > 1) ||
             ($this->y > 1 || $this->y * -1 > 1)
         ) {
             throw new SpiralDirectionException("Directions can't be more than one unit distant from zero.");

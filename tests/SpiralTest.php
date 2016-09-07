@@ -1,14 +1,14 @@
 <?php
 
-use Aguimaraes\Spiral\Builder;
-use Aguimaraes\Spiral\Exceptions\SpiralException;
-use Aguimaraes\Spiral\SpiralPoint;
+use Aguimaraes\Geometry\Spiral;
+use Aguimaraes\Geometry\Exceptions\SpiralException;
+use Aguimaraes\Geometry\SpiralPoint;
 
-class BuilderTest extends PHPUnit_Framework_TestCase
+class SpiralTest extends PHPUnit_Framework_TestCase
 {
     public function testIfTotalsWillBeRespected()
     {
-        $collection = (new Builder())->setTotal(3)
+        $collection = (new Spiral())->setTotal(3)
             ->generate();
 
         $this->assertEquals(3, count($collection));
@@ -16,7 +16,7 @@ class BuilderTest extends PHPUnit_Framework_TestCase
 
     public function testIfStepsWillBeRespected()
     {
-        $collection = (new Builder())->setStep(2)
+        $collection = (new Spiral())->setStep(2)
             ->setTotal(8)
             ->generate();
 
@@ -30,20 +30,20 @@ class BuilderTest extends PHPUnit_Framework_TestCase
     public function testAngleCannotBeGreaterThan90()
     {
         $this->expectException(SpiralException::class);
-        $builder = new Builder();
+        $builder = new Spiral();
         $builder->setAngle(180);
     }
 
     public function testAngleMustBeMultipleOf45()
     {
         $this->expectException(SpiralException::class);
-        $builder = new Builder();
+        $builder = new Spiral();
         $builder->setAngle(70);
     }
 
     public function testIfAngleWillBeRespected()
     {
-        $collection = (new Builder())->setStep(2)
+        $collection = (new Spiral())->setStep(2)
             ->setAngle(45)
             ->setTotal(8)
             ->generate();

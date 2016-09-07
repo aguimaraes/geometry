@@ -1,6 +1,6 @@
 <?php
 
-namespace Aguimaraes\Spiral\Exceptions;
+namespace Aguimaraes\Geometry\Exceptions;
 
 class SpiralDirectionException extends SpiralException
 {
