@@ -59,8 +59,7 @@ class Spiral implements \Countable, \ArrayAccess
             $y += $this->getDirectionY();
             if ($i === $turn) { // should I turn my head now?
                 $headAngle = $this->getHeadAngle($headAngle);
-                $step = $this->getNextTurn($step);
-                $turn += $step; // will go further steps to turn next time
+                $turn += $step = $this->getNextTurn($step); // will go further steps to turn next time
                 $this->updateDirection($headAngle);
             }
             $this->add(new SpiralPoint($x, $y));
