@@ -4,9 +4,9 @@ namespace Aguimaraes\Geometry\Coordinate;
 
 class Cartesian extends Base
 {
-    protected $x;
+    public $x;
 
-    protected $y;
+    public $y;
 
     public function __construct($x, $y)
     {
@@ -14,21 +14,15 @@ class Cartesian extends Base
         $this->y = $y;
     }
 
-    public function getX()
+    /**
+     * Convert this Cartesian coordinate to a Polar coordinate
+     *
+     * @return Polar
+     */
+    public function toPolar()
     {
-        return $this->x;
-    }
-
-    public function getY()
-    {
-        return $this->y;
-    }
-
-    public static function fromPolar(Polar $polar)
-    {
-        $theta = deg2rad($polar->getTheta());
-        $x = round($polar->getR() * cos($theta));
-        $y = round($polar->getR() * sin($theta));
-        return new static($x, $y);
+        $r = sqrt(pow($this->x, 2) + pow($this->y, 2));
+        $theta = rad2deg(atan2($this->y, $this->x));
+        return new Polar($r, $theta);
     }
 }

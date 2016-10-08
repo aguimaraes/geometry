@@ -1,21 +1,16 @@
 <?php
 
-namespace Coordinate;
-
 use Aguimaraes\Geometry\Coordinate\Cartesian;
 use Aguimaraes\Geometry\Coordinate\Polar;
 
 class CartesianTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testConversionFromPolar()
+    public function testConversionToPolar()
     {
-        $polar = new Polar(13, 22.6);
-        $cartesian = Cartesian::fromPolar($polar);
+        $expected = new Polar(13, 22.62);
+        $cartesian = new Cartesian(12, 5);
 
-        $expected = new Cartesian(12, 5);
-
-        $this->assertEquals($expected, $cartesian);
+        $this->assertEquals($expected, $cartesian->toPolar());
     }
-
 }

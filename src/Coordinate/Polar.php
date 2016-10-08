@@ -4,34 +4,21 @@ namespace Aguimaraes\Geometry\Coordinate;
 
 class Polar extends Base
 {
-    protected $r;
+    public $r;
 
-    protected $theta;
+    public $theta;
 
     public function __construct($r, $theta)
     {
         $this->r = (float) $r;
-        $this->theta = round($theta, $this->precision);
+        $this->theta = round($theta);
     }
 
-    public static function fromCartesian(Cartesian $cartesian)
+    public function toCartesian()
     {
-        $x = $cartesian->getX();
-        $y = $cartesian->getY();
-
-        $r = sqrt(pow($x, 2) + pow($y, 2));
-        $theta = rad2deg(atan2($y, $x));
-
-        return new static($r, $theta);
-    }
-
-    public function getR()
-    {
-        return $this->r;
-    }
-
-    public function getTheta()
-    {
-        return $this->theta;
+        $radiansTheta = deg2rad($this->theta);
+        $x = round($this->r * cos($radiansTheta));
+        $y = round($this->r * sin($radiansTheta));
+        return new Cartesian($x, $y);
     }
 }
